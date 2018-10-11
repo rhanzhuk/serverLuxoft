@@ -14,19 +14,19 @@ public class Server {
     private int port;
     private Socket socket;
 
-    public Socket connector(){
+    public Socket connector() {
         //Socket socket;
-        try(ServerSocket serverSocket = new ServerSocket(port);) {
+        try (ServerSocket serverSocket = new ServerSocket(port);) {
             socket = serverSocket.accept();
             return socket;
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             //TODO response to console msg
         }
         return null;
     }
 
-    public void serviceServer(int port) throws IOException{
+    public void serviceServer(int port) throws IOException {
 
         //TODO поправить на относительный путь
         //TODO fix что бы сервер отрабатывал не один раз
@@ -42,6 +42,7 @@ public class Server {
 
     }
 
+
     public String controller() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         List<String> list = new ArrayList<>();
@@ -56,9 +57,9 @@ public class Server {
         return result;
     }
 
-    private String readContent(String from){
+    private String readContent(String from) {
         String result = null;
-        try(InputStream inputStream = new FileInputStream(from);){
+        try (InputStream inputStream = new FileInputStream(from);) {
             StringBuilder content = new StringBuilder();
             byte[] buffer = new byte[1024];
             int count;
@@ -66,7 +67,7 @@ public class Server {
                 content.append(new String(buffer, 0, count));
             }
             result = content.toString();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return result;
@@ -77,7 +78,7 @@ public class Server {
         this.path = path;
     }
 
-    public void setPort(int port){
+    public void setPort(int port) {
         this.port = port;
     }
 
@@ -87,7 +88,7 @@ public class Server {
 
     }
 
-    private String requestPathParser(String request){
+    private String requestPathParser(String request) {
         String[] arrayString = request.split("\\s");
         String result = arrayString[1];
         System.out.println("Result pars:" + result);
